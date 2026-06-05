@@ -14,7 +14,7 @@
     --gold:#c4a265; --gold-hover:#d8b97f; --gold-soft:rgba(196,162,101,.13); --line:rgba(196,162,101,.22);
   }
   *{box-sizing:border-box}
-  html,body{margin:0;padding:0}
+  html,body{margin:0;padding:0;overflow-x:hidden}
   body{
     background:#2a2a2e url('bg-salon.webp') center/cover fixed no-repeat;
     color:var(--text);
@@ -34,7 +34,7 @@
   h1{font-family:'Outfit',sans-serif;font-weight:700;font-size:clamp(24px,7vw,36px);letter-spacing:-0.5px;text-transform:uppercase;margin:0 0 18px;line-height:1.06;text-align:center;overflow-wrap:break-word}
   .lede{color:var(--muted);font-size:15px;font-weight:300;margin:0 0 28px;text-align:center}
   .meta{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;margin:0 0 32px;font-size:14px;text-align:center}
-  .meta div{display:flex;gap:10px;margin:4px 0;color:var(--text);justify-content:center}
+  .meta div{margin:6px 0;color:var(--text);overflow-wrap:break-word}
   .meta a{color:var(--muted);text-decoration:none;border-bottom:1px solid transparent}
   .meta a:hover{color:var(--text);border-color:var(--muted)}
   label{display:block;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
