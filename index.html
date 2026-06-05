@@ -31,7 +31,7 @@
     border:1px solid var(--line);border-radius:16px;
   }
   .eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin:0 0 14px;text-align:center}
-  h1{font-family:'Outfit',sans-serif;font-weight:700;font-size:36px;letter-spacing:-0.5px;text-transform:uppercase;margin:0 0 18px;line-height:1.04;text-align:center}
+  h1{font-family:'Outfit',sans-serif;font-weight:700;font-size:clamp(24px,7vw,36px);letter-spacing:-0.5px;text-transform:uppercase;margin:0 0 18px;line-height:1.06;text-align:center;overflow-wrap:break-word}
   .lede{color:var(--muted);font-size:15px;font-weight:300;margin:0 0 28px;text-align:center}
   .meta{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;margin:0 0 32px;font-size:14px;text-align:center}
   .meta div{display:flex;gap:10px;margin:4px 0;color:var(--text);justify-content:center}
@@ -61,6 +61,7 @@
   .cal{display:inline-flex;gap:8px;color:var(--gold);font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:600;text-decoration:none}
   .hidden{display:none}
   .logo{font-family:'DM Sans',sans-serif;font-weight:200;letter-spacing:.3em;font-size:30px;color:#fff;text-align:center;margin:0 0 40px;text-transform:uppercase;text-indent:.3em;text-shadow:0 0 14px rgba(212,212,220,.25)}
+  @media(max-width:440px){.wrap{padding:40px 22px}}
 </style>
 </head>
 <body>
@@ -68,7 +69,7 @@
     <p class="logo">GARAGE</p>
 
     <p class="eyebrow">You're invited</p>
-    <h1>GARAGE&nbsp;x&nbsp;CORINNE</h1>
+    <h1>GARAGE x CORINNE</h1>
     <p class="lede">An evening with Corinne. Drinks, music by Housewives of Marbella, styling inspiration from our team, and Corinne's hair accessories collection.</p>
 
     <div class="meta">
