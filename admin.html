@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GARAGE x CORINNE — RSVP list</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet" />
+<style>
+  :root{--bg:#111110;--text:#ece8e1;--muted:#8c887e;--gold:#c2a981;--line:#2a2724}
+  *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;min-height:100vh}
+  .wrap{max-width:760px;margin:0 auto;padding:56px 24px 80px}
+  .logo{font-family:'Cormorant Garamond',serif;letter-spacing:8px;font-size:14px;color:var(--muted);margin:0 0 32px}
+  .eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin:0 0 10px}
+  h1{font-family:'Cormorant Garamond',serif;font-size:32px;margin:0 0 28px}
+  label{display:block;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+  input{width:100%;max-width:280px;background:#1a1916;border:1px solid var(--line);color:var(--text);font-size:16px;padding:12px 14px;border-radius:8px;outline:none}
+  input:focus{border-color:var(--gold)}
+  button{margin-top:14px;background:var(--gold);color:#1a1510;border:none;border-radius:8px;font-weight:600;letter-spacing:2px;text-transform:uppercase;font-size:12px;padding:13px 22px;cursor:pointer}
+  .err{color:#e07a5f;font-size:13px;margin-top:10px}
+  .stats{display:flex;gap:14px;margin:0 0 26px}
+  .stat{border:1px solid var(--line);border-radius:10px;padding:16px 22px;min-width:120px}
+  .stat .n{font-family:'Cormorant Garamond',serif;font-size:34px;line-height:1}
+  .stat .l{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:6px}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th{text-align:left;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:500;padding:10px 12px;border-bottom:1px solid var(--line)}
+  td{padding:11px 12px;border-bottom:1px solid #1e1c19}
+  td.m{color:var(--muted)}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="logo">GARAGE</p>
+  <p class="eyebrow">Admin</p>
+  <h1>GARAGE x CORINNE — RSVPs</h1>
+
+  <form id="gate">
+    <label for="pass">Passphrase</label>
+    <input id="pass" type="password" autofocus />
+    <div><button type="submit">View list</button></div>
+    <p id="err" class="err hidden"></p>
+  </form>
+
+  <div id="view" class="hidden">
+    <div class="stats">
+      <div class="stat"><div class="n" id="parties">0</div><div class="l">Parties</div></div>
+      <div class="stat"><div class="n" id="guests">0</div><div class="l">Total guests</div></div>
+    </div>
+    <table>
+      <thead><tr><th>Name</th><th>Guests</th><th>Email</th><th>When</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+</div>
+<script>
+  const URL="https://nuafpaicvrwazynyspym.supabase.co";
+  const KEY="sb_publishable_ZuWj_1UolGUkAUy69PD5xA_6wfakQQA";
+  const EVENT="garage-x-corinne-2026-06-05";
+  const gate=document.getElementById("gate"), err=document.getElementById("err");
+  gate.addEventListener("submit", async (e)=>{
+    e.preventDefault(); err.classList.add("hidden");
+    const pass=document.getElementById("pass").value;
+    try{
+      const r=await fetch(URL+"/functions/v1/list-rsvps",{method:"POST",
+        headers:{"apikey":KEY,"x-rsvp-passphrase":pass,"Content-Type":"application/json"},
+        body:JSON.stringify({eventId:EVENT})});
+      if(!r.ok) throw new Error();
+      const d=await r.json();
+      document.getElementById("parties").textContent=d.parties||0;
+      document.getElementById("guests").textContent=d.totalGuests||0;
+      const tb=document.getElementById("rows"); tb.innerHTML="";
+      (d.rsvps||[]).forEach(x=>{
+        const tr=document.createElement("tr");
+        const when=new Date(x.created_at).toLocaleString("en-GB",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"});
+        tr.innerHTML=`<td>${x.name}</td><td>${x.guests}</td><td class="m">${x.email}</td><td class="m">${when}</td>`;
+        tb.appendChild(tr);
+      });
+      gate.classList.add("hidden"); document.getElementById("view").classList.remove("hidden");
+    }catch(_){ err.textContent="Wrong passphrase, or list unavailable."; err.classList.remove("hidden"); }
+  });
+</script>
+</body>
+</html>
