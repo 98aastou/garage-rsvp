@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GARAGE x CORINNE — RSVP</title>
+<meta name="description" content="You're invited to an evening at Garage Hair Club." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#111110; --text:#ece8e1; --muted:#8c887e;
+    --gold:#c2a981; --gold-soft:#c2a98122; --line:#2a2724;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.55;
+    min-height:100vh;
+  }
+  .wrap{max-width:520px;margin:0 auto;padding:64px 24px 80px}
+  .eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin:0 0 14px}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:40px;letter-spacing:1px;margin:0 0 18px;line-height:1.05}
+  .lede{color:var(--muted);font-size:15px;font-weight:300;margin:0 0 28px}
+  .meta{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;margin:0 0 32px;font-size:14px}
+  .meta div{display:flex;gap:10px;margin:4px 0;color:var(--text)}
+  .meta a{color:var(--muted);text-decoration:none;border-bottom:1px solid transparent}
+  .meta a:hover{color:var(--text);border-color:var(--muted)}
+  label{display:block;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+  .field{margin:0 0 20px}
+  input{
+    width:100%;background:#1a1916;border:1px solid var(--line);color:var(--text);
+    font-size:16px;font-family:inherit;padding:13px 14px;border-radius:8px;outline:none;
+  }
+  input:focus{border-color:var(--gold)}
+  button{
+    width:100%;background:var(--gold);color:#1a1510;border:none;border-radius:8px;
+    font-family:inherit;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+    padding:15px;cursor:pointer;transition:opacity .15s;
+  }
+  button:hover{opacity:.9}
+  button:disabled{opacity:.5;cursor:default}
+  .err{color:#e07a5f;font-size:13px;margin:6px 0 0}
+  .fine{color:var(--muted);font-size:12px;text-align:center;margin:18px 0 0}
+  .fine a{color:var(--muted)}
+  .done{text-align:center;border:1px solid var(--line);border-radius:12px;padding:44px 28px}
+  .check{width:48px;height:48px;border-radius:50%;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;color:var(--gold);font-size:22px}
+  .done h2{font-size:12px;letter-spacing:2px;text-transform:uppercase;margin:0 0 10px;color:var(--text)}
+  .done p{color:var(--muted);font-size:14px;margin:0 0 22px}
+  .cal{display:inline-flex;gap:8px;color:var(--gold);font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:600;text-decoration:none}
+  .hidden{display:none}
+  .logo{font-family:'Cormorant Garamond',serif;letter-spacing:8px;font-size:15px;color:var(--muted);text-align:center;margin:0 0 48px}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="logo">GARAGE</p>
+
+    <p class="eyebrow">You're invited</p>
+    <h1>GARAGE&nbsp;x&nbsp;CORINNE</h1>
+    <p class="lede">An evening with Corinne. Drinks, music by Housewives of Marbella, styling inspiration from our team, and Corinne's hair accessories collection.</p>
+
+    <div class="meta">
+      <div>Friday 5 June 2026 · 17:00 — 19:00</div>
+      <div><a href="https://maps.google.com/?q=Av.+de+Barcelona+8+San+Pedro+Alcantara" target="_blank" rel="noopener">Garage Hair Club — Av. de Barcelona, 8, San Pedro Alcántara</a></div>
+    </div>
+
+    <form id="form">
+      <div class="field">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" maxlength="120" autocomplete="name" required />
+      </div>
+      <div class="field">
+        <label for="guests">Number of guests (including you)</label>
+        <input id="guests" name="guests" type="number" min="1" max="10" value="1" required />
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" maxlength="200" autocomplete="email" required />
+      </div>
+      <button id="submit" type="submit">RSVP</button>
+      <p id="err" class="err hidden"></p>
+      <p class="fine">We'll only use your details for this event.</p>
+    </form>
+
+    <div id="done" class="done hidden">
+      <div class="check">✓</div>
+      <h2>You're on the list</h2>
+      <p>A confirmation is on its way to your inbox. See you at Garage Hair Club.</p>
+      <a class="cal" id="cal" href="#" target="_blank" rel="noopener">+ Add to calendar</a>
+    </div>
+  </div>
+
+<script>
+  const SUPABASE_URL = "https://nuafpaicvrwazynyspym.supabase.co";
+  const KEY = "sb_publishable_ZuWj_1UolGUkAUy69PD5xA_6wfakQQA";
+  const EVENT_ID = "garage-x-corinne-2026-06-05";
+
+  const form = document.getElementById("form");
+  const errEl = document.getElementById("err");
+  const btn = document.getElementById("submit");
+
+  // Google Calendar link
+  document.getElementById("cal").href =
+    "https://calendar.google.com/calendar/render?action=TEMPLATE" +
+    "&text=" + encodeURIComponent("GARAGE x CORINNE") +
+    "&dates=20260605T150000Z/20260605T170000Z" +
+    "&location=" + encodeURIComponent("Av. de Barcelona, 8, San Pedro Alcántara") +
+    "&details=" + encodeURIComponent("An evening at Garage Hair Club.");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    errEl.classList.add("hidden");
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim().toLowerCase();
+    const guests = parseInt(document.getElementById("guests").value, 10);
+    if (!name || !email || !(guests >= 1 && guests <= 10)) {
+      errEl.textContent = "Please check your details.";
+      errEl.classList.remove("hidden");
+      return;
+    }
+    btn.disabled = true; btn.textContent = "Sending…";
+    try {
+      const res = await fetch(SUPABASE_URL + "/rest/v1/rsvps", {
+        method: "POST",
+        headers: {
+          "apikey": KEY,
+          "Authorization": "Bearer " + KEY,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ event_id: EVENT_ID, name, email, guests }),
+      });
+      if (!res.ok) throw new Error("save failed");
+      form.classList.add("hidden");
+      document.getElementById("done").classList.remove("hidden");
+    } catch (err) {
+      btn.disabled = false; btn.textContent = "RSVP";
+      errEl.textContent = "Something went wrong. Please try again.";
+      errEl.classList.remove("hidden");
+    }
+  });
+</script>
+</body>
+</html>
