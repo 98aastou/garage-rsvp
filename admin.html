@@ -9,13 +9,15 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root{--bg:#1a1614;--text:#faf8f5;--muted:#a39685;--gold:#c4a265;--line:rgba(196,162,101,.22)}
-  *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:'DM Sans',-apple-system,sans-serif;min-height:100vh}
-  .wrap{max-width:760px;margin:0 auto;padding:56px 24px 80px}
-  .logo{font-family:'Outfit',sans-serif;font-weight:700;letter-spacing:9px;font-size:14px;color:var(--text);margin:0 0 32px;text-transform:uppercase}
+  *{box-sizing:border-box}
+  body{margin:0;background:#2a2a2e url('bg-salon.webp') center/cover fixed no-repeat;color:var(--text);font-family:'DM Sans',-apple-system,sans-serif;min-height:100vh}
+  body::before{content:'';position:fixed;inset:0;background:linear-gradient(rgba(18,18,22,.78),rgba(18,18,22,.86));z-index:0}
+  .wrap{position:relative;z-index:1;width:min(820px,calc(100% - 32px));margin:44px auto;padding:48px 40px;background:rgba(20,17,15,.5);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:16px}
+  .logo{font-family:'DM Sans',sans-serif;font-weight:200;letter-spacing:.3em;font-size:24px;color:#fff;margin:0 0 30px;text-transform:uppercase;text-indent:.3em}
   .eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin:0 0 10px}
   h1{font-family:'Outfit',sans-serif;font-weight:700;font-size:28px;letter-spacing:-0.5px;text-transform:uppercase;margin:0 0 28px}
   label{display:block;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
-  input{width:100%;max-width:280px;background:#221d19;border:1px solid var(--line);color:var(--text);font-size:16px;padding:12px 14px;border-radius:8px;outline:none}
+  input{width:100%;max-width:280px;background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--text);font-size:16px;padding:12px 14px;border-radius:8px;outline:none}
   input:focus{border-color:var(--gold)}
   button{margin-top:14px;background:var(--gold);color:#1a1510;border:none;border-radius:8px;font-weight:600;letter-spacing:2px;text-transform:uppercase;font-size:12px;padding:13px 22px;cursor:pointer}
   .err{color:#e07a5f;font-size:13px;margin-top:10px}
